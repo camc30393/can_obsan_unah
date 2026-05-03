@@ -159,4 +159,4 @@ estadística (Honduras, Decreto 86-2006).
 > Manzanares Cruz, C. A. (2025). *Tablero del Censo Agropecuario Nacional
 > 2024 — OBSAN-UNAH* [Software]. Observatorio en Seguridad Alimentaria y
 > Nutricional, Universidad Nacional Autónoma de Honduras.
-> https://github.com/<TU-USUARIO>/can-dashboard-unah
+https://camc30393.github.io/can_obsan_unah/
