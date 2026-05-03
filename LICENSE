@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 camc30393
+Copyright (c) 2026 Christian Alexis Manzanares Cruz · ORCID0009-0004-7419-0449
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+DATA NOTICE
+-----------
+Statistical data from the Censo Agropecuario Nacional 2024 (CAN 2024) is the
+intellectual property of Instituto Nacional de Estadística (INE) of Honduras
+and is reproduced here for academic and analytical purposes under Honduran
+public information access law (Decreto 86-2006). Any redistribution should
+preserve attribution to INE.
