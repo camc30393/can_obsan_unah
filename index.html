@@ -1,0 +1,90 @@
+<!doctype html>
+<!--
+============================================================================
+  CAN Dashboard UNAH.html · Tablero del Censo Agropecuario Nacional 2024
+============================================================================
+  Autor:    Christian Alexis Manzanares Cruz (CAMC)
+  ORCID:    0009-0004-7419-0449
+  Adscrito: OBSAN — Observatorio en Seguridad Alimentaria y Nutricional
+            Instituto de Investigaciones Sociales (IIS)
+            Facultad de Ciencias Sociales (FCCSS) · UNAH
+  Datos:    Censo Agropecuario Nacional 2024 — INE (Honduras)
+
+  ESTRUCTURA DEL PROYECTO:
+    CAN Dashboard UNAH.html  ← este archivo (entrada de la aplicación)
+    styles.css               ← todos los estilos (paleta UNAH, layout)
+    app.jsx                  ← componente raíz <App />
+    map.jsx                  ← mapa MapLibre 3D + cabecera + KPIs + footer
+    side.jsx                 ← panel lateral (detalle/ranking/comparar/tabla)
+    tweaks.jsx               ← panel flotante de ajustes
+    data/can_2024.json       ← datos por departamento
+    data/honduras_departamentos.geojson  ← polígonos del mapa
+
+  CÓMO ABRIRLO LOCALMENTE:
+    El proyecto debe servirse desde un servidor HTTP (no funciona con
+    file://) porque carga JSON con fetch(). Opciones:
+      1) python3 -m http.server 8000     → http://localhost:8000
+      2) npx serve .
+      3) Subirlo a GitHub Pages — ver COMO_SUBIR_A_GITHUB.txt
+
+  LIBRERÍAS EXTERNAS (todas vía CDN unpkg):
+    - React 18.3.1            biblioteca de interfaz
+    - ReactDOM 18.3.1
+    - Babel Standalone 7.29   compila JSX en el navegador
+    - MapLibre GL JS 4.7.1    motor de mapas WebGL
+============================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Censo Agropecuario Nacional 2024 · Observatorio UNAH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" crossorigin="anonymous" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  body { font-family: "IBM Plex Sans", "Söhne", "Inter", system-ui, sans-serif; }
+  .brand-text .t2 { font-family: "Source Serif 4", "Times New Roman", serif; font-weight: 600; }
+  .kpi-value { font-family: "Source Serif 4", "Times New Roman", serif; font-weight: 600; }
+  .side-section h2 { font-family: "Source Serif 4", "Times New Roman", serif; font-weight: 600; }
+  .indicator-pill select { font-family: "Source Serif 4", "Times New Roman", serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+<script type="text/babel" src="app.jsx?v=8"></script>
+<script type="text/babel" src="map.jsx?v=8"></script>
+<script type="text/babel" src="side.jsx?v=8"></script>
+<script type="text/babel" src="tweaks.jsx?v=8"></script>
+
+<script type="text/babel">
+  // Hook for indicator-pill select
+  window.__setIndicator = (id) => {
+    // Find App's setTweak via custom event
+    window.dispatchEvent(new CustomEvent("set-indicator", { detail: id }));
+  };
+
+  // Wait for components, mount
+  setTimeout(() => {
+    const Mount = () => {
+      const [, force] = React.useState(0);
+      React.useEffect(() => {
+        const h = (e) => {
+          // bridge to App's tweak state via root re-render
+        };
+      }, []);
+      return <window.App />;
+    };
+    ReactDOM.createRoot(document.getElementById("root")).render(<window.App />);
+  }, 60);
+</script>
+</body>
+</html>
