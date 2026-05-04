@@ -174,7 +174,7 @@ El modelo relacional (`MODELO_DATOS_SIDH`) sigue los estándares:
  
 ```bash
 # Clonar el repositorio
-git clone https://github.com/[usuario]/SIDH-OBSAN.git
+git clone https://camc30393.github.io/sidh_obsan_unah/
 cd SIDH-OBSAN
  
 # Abrir en el navegador (sin servidor)
