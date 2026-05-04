@@ -1,29 +1,99 @@
-MIT License
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
 
-Copyright (c) 2026 Christian Alexis Manzanares Cruz · ORCID0009-0004-7419-0449
+Copyright (c) 2026
+Universidad Nacional Autónoma de Honduras (UNAH)
+Observatorio de Seguridad Alimentaria y Nutricional (OBSAN-UNAH)
+Carrera de Nutrición — Dirección de Investigación Científica, Humanística y Tecnológica (DICIHT)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Autores del Proyecto de Innovación:
+  Ph.D. Elizabeth León
+  Dra. Patricia Ochoa
+  Lic. Elena Rivera
+  M.Sc. María Luisa García
+  M.Sc. Christian Manzanares
+  Lic. Fiama García
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+TÉRMINOS DE LA LICENCIA / LICENSE TERMS
 
-DATA NOTICE
------------
-Statistical data from the Censo Agropecuario Nacional 2024 (CAN 2024) is the
-intellectual property of Instituto Nacional de Estadística (INE) of Honduras
-and is reproduced here for academic and analytical purposes under Honduran
-public information access law (Decreto 86-2006). Any redistribution should
-preserve attribution to INE.
+Este trabajo está protegido bajo los términos de la Licencia Creative Commons
+Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USTED PUEDE / YOU ARE FREE TO:
+
+  ✔  Compartir (Share)
+     Copiar y redistribuir el material en cualquier medio o formato.
+     Copy and redistribute the material in any medium or format.
+
+  ✔  Adaptar (Adapt)
+     Remezclar, transformar y construir a partir del material.
+     Remix, transform, and build upon the material.
+
+BAJO LAS SIGUIENTES CONDICIONES / UNDER THE FOLLOWING TERMS:
+
+  BY — Atribución / Attribution
+     Debe otorgar el crédito correspondiente a la UNAH-OBSAN y a los autores
+     del proyecto, proporcionar un enlace a esta licencia e indicar si se han
+     realizado cambios. Puede hacerlo de cualquier manera razonable, pero no
+     de forma que sugiera que la UNAH o los autores lo respaldan a usted o al
+     uso que hace del material.
+
+     You must give appropriate credit to UNAH-OBSAN and the project authors,
+     provide a link to the license, and indicate if changes were made. You may
+     do so in any reasonable manner, but not in any way that suggests the
+     licensor endorses you or your use.
+
+  NC — NoComercial / NonCommercial
+     No puede utilizar el material con fines comerciales.
+     You may not use the material for commercial purposes.
+
+  SA — CompartirIgual / ShareAlike
+     Si remezcla, transforma o construye a partir del material, debe distribuir
+     sus contribuciones bajo la misma licencia que el original.
+     If you remix, transform, or build upon the material, you must distribute
+     your contributions under the same license as the original.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROPIEDAD INTELECTUAL / INTELLECTUAL PROPERTY
+
+Los siguientes componentes del proyecto son susceptibles de gestión de
+propiedad intelectual ante la DICIHT-UNAH y se encuentran protegidos:
+
+  • Modelo del sistema informático SIDH
+  • Bases de datos originales generadas en el proyecto
+  • Instrumentos de recolección adaptados al contexto hondureño
+  • Metodologías y protocolos de análisis dietético
+  • Catálogo de alimentos y preparaciones típicas hondureñas
+  • Indicadores y sistemas de clasificación propios
+  • Material educativo y de capacitación desarrollado
+  • Informes técnicos y artículos científicos derivados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXENCIÓN DE RESPONSABILIDAD / DISCLAIMER
+
+Este software y los datos asociados se proporcionan "tal cual" (as-is) con
+fines exclusivamente académicos, de investigación y docencia. La UNAH-OBSAN
+no asume responsabilidad alguna por el uso que terceros hagan del sistema
+fuera del contexto institucional para el que fue diseñado.
+
+This software and associated data are provided "as-is" for academic, research,
+and teaching purposes only. UNAH-OBSAN assumes no liability for any use of
+the system outside the institutional context for which it was designed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Texto completo de la licencia / Full license text:
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+Para uso institucional, permisos especiales o colaboraciones académicas:
+For institutional use, special permissions or academic collaborations:
+  obsan@unah.edu.hn
+  https://obsan.unah.edu.hn
