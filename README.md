@@ -11,7 +11,7 @@ Tablero interactivo del **Censo Agropecuario Nacional 2024 (CAN 2024)** para Hon
 
 Una vez publicado en GitHub Pages, estará disponible en:
 
-`https://<TU-USUARIO>.github.io/can-dashboard-unah/`
+`https://camc30393.github.io/can_obsan_unah/`
 
 Para publicarlo, sigue las instrucciones de **`COMO_SUBIR_A_GITHUB.txt`**.
 
