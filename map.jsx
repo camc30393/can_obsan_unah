@@ -35,7 +35,7 @@ const { useEffect, useRef, useState, useMemo } = React;
 // ----------------------------------------------------------------------------
 // <Header />  Barra superior con marca CAMC y título OBSAN.
 // ----------------------------------------------------------------------------
-function Header({ total }) {
+function Header({ total, onOpenTweaks }) {
   return (
     <header className="app-header">
       <div className="brand">
@@ -45,9 +45,25 @@ function Header({ total }) {
           <div className="t2">Censo Agropecuario Nacional · CAN 2024</div>
         </div>
       </div>
-      <div className="header-meta">
-        <div><strong>Datos preliminares</strong> · año agrícola 2023–2024</div>
-        <div>Fuente: Instituto Nacional de Estadística (INE)</div>
+      <div className="header-right">
+        <div className="header-meta">
+          <div><strong>Datos preliminares</strong> · año agrícola 2023–2024</div>
+          <div>Fuente: Instituto Nacional de Estadística (INE)</div>
+        </div>
+        {onOpenTweaks && (
+          <button
+            className="header-tweaks-btn"
+            onClick={onOpenTweaks}
+            title="Ajustes del tablero"
+            aria-label="Abrir panel de ajustes"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span>Ajustes</span>
+          </button>
+        )}
       </div>
     </header>
   );
@@ -101,12 +117,26 @@ function Footer() {
           <div className="footer-title">Equipo</div>
           <div className="footer-author">
             <div className="footer-author-name">Christian Alexis Manzanares Cruz</div>
-            <div className="footer-author-meta">Especialista en Sistemas de Información · OBSAN</div>
+            <div className="footer-author-meta">Especialista en Sistemas de Información — OBSAN</div>
             <div className="footer-author-meta">
               ORCID <a href="https://orcid.org/0009-0004-7419-0449" target="_blank" rel="noopener">0009-0004-7419-0449</a>
             </div>
-            <div className="footer-author-meta">Tegucigalpa, M.D.C. · Honduras</div>
           </div>
+          <div className="footer-author" style={{marginTop: 10}}>
+            <div className="footer-author-name">Fiama Noelia García Castillo</div>
+            <div className="footer-author-meta">Especialista en SAN — OBSAN</div>
+            <div className="footer-author-meta">
+              ORCID <a href="https://orcid.org/0009-0009-0254-2683" target="_blank" rel="noopener">0009-0009-0254-2683</a>
+            </div>
+          </div>
+          <div className="footer-author" style={{marginTop: 10}}>
+            <div className="footer-author-name">María Luisa García Rodríguez</div>
+            <div className="footer-author-meta">Coordinadora — OBSAN</div>
+            <div className="footer-author-meta">
+              ORCID <a href="https://orcid.org/0009-0003-3775-1449" target="_blank" rel="noopener">0009-0003-3775-1449</a>
+            </div>
+          </div>
+          <div className="footer-author-meta" style={{marginTop: 10}}>Tegucigalpa, M.D.C., Honduras</div>
         </div>
         <div className="footer-col">
           <div className="footer-title">Recursos</div>

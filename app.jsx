@@ -37,22 +37,26 @@ const { useState, useEffect, useRef, useMemo, useCallback } = React;
 // ============================================================================
 
 /**
- * Formatea un número al estilo latino-hondureño:
- *   1.234.567,89  (punto = miles · coma = decimales)
- * Usamos Intl.NumberFormat con locale "de-DE" porque alemán usa la misma
- * convención y está soportado en todos los navegadores modernos.
+ * Formato numérico para Honduras / Latinoamérica solicitado por el autor:
+ *   1,234,567.89   (coma = miles · punto = decimales)
+ * Se usa el locale "en-US" porque sigue exactamente esa convención.
+ * Si en el futuro se decide adoptar el estándar ISO/INE (1.234.567,89),
+ * basta con cambiar "en-US" por "es-HN" o "de-DE".
  */
 const fmtN = (n, d = 0) => {
   if (n == null || isNaN(n)) return "—";
-  return new Intl.NumberFormat("de-DE", {
+  return new Intl.NumberFormat("en-US", {
     minimumFractionDigits: d, maximumFractionDigits: d
   }).format(n);
 };
 
-/** Formatea porcentaje:  0.234  →  "23.4%" */
-const fmtPct = (n, d = 1) => (n == null ? "—" : `${(n * 100).toFixed(d)}%`);
+/** Formatea porcentaje:  0.234  →  "23.4%" (punto decimal estilo en-US) */
+const fmtPct = (n, d = 1) => {
+  if (n == null || isNaN(n)) return "—";
+  return `${new Intl.NumberFormat("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }).format(n * 100)}%`;
+};
 
-/** Formato compacto: 1.500.000 → "1,50 M" · 4.500 → "4,5 mil" */
+/** Formato compacto: 1,500,000 → "1.50 M" · 4,500 → "4.5 mil" */
 const fmtCompact = (n) => {
   if (n == null) return "—";
   if (n >= 1e6) return `${fmtN(n / 1e6, 2)} M`;
@@ -211,7 +215,10 @@ function App() {
     return () => window.removeEventListener("set-indicator", onSet);
   }, []);
 
-  // 2.d) Toggle del panel de Tweaks (comunicación con la plataforma editora)
+  // 2.d) Toggle del panel de Tweaks. Antes solo se abría vía toolbar de la
+  //      plataforma editora. Ahora hay un botón flotante «Ajustes» (ver abajo)
+  //      que también abre el panel — garantiza que en GitHub Pages siempre
+  //      sea accesible para el usuario final.
   const [tweaksOpen, setTweaksOpen] = useState(false);
   useEffect(() => {
     const onMsg = (e) => {
@@ -246,17 +253,23 @@ function App() {
   // 7) Render del árbol
   return (
     <div className="app">
-      <Header total={data.total} />
+      <Header total={data.total} onOpenTweaks={() => setTweaksOpen(true)} />
       <KPIs total={data.total} />
       <div className="body">
-        <MapView
-          geo={geo} data={data} indicator={ind}
-          minV={minV} maxV={maxV}
-          tweaks={tweaks} setTweak={setTweak}
-          selected={selected} setSelected={setSelected}
-          compareWith={compareWith}
-          setHover={setHover} hover={hover}
-        />
+        <div className="map-column">
+          <MapView
+            geo={geo} data={data} indicator={ind}
+            minV={minV} maxV={maxV}
+            tweaks={tweaks} setTweak={setTweak}
+            selected={selected} setSelected={setSelected}
+            compareWith={compareWith}
+            setHover={setHover} hover={hover}
+          />
+          <window.AnalysisBox
+            data={data} indicator={ind}
+            selected={selected}
+          />
+        </div>
         <SidePanel
           data={data} indicator={ind}
           minV={minV} maxV={maxV}
@@ -266,6 +279,24 @@ function App() {
         />
       </div>
       <Footer />
+
+      {/* Botón flotante de Ajustes — siempre visible para el usuario final.
+          Aparece arriba a la derecha del viewport y abre el panel <TweaksUI/>. */}
+      {!tweaksOpen && (
+        <button
+          className="tweaks-fab"
+          onClick={() => setTweaksOpen(true)}
+          title="Ajustes del tablero"
+          aria-label="Abrir panel de ajustes"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Ajustes</span>
+        </button>
+      )}
+
       {tweaksOpen && (
         <TweaksUI
           tweaks={tweaks} setTweak={setTweak}
