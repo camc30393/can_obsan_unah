@@ -259,12 +259,16 @@ body {
 
 .compare-toggle {
   display: flex; gap: 6px; margin-top: 12px;
+  flex-wrap: wrap;
 }
 .compare-toggle button {
-  flex: 1; padding: 6px 10px; font-size: 11px;
+  flex: 1 0 calc(33.333% - 4px);
+  min-width: 0;
+  padding: 6px 8px; font-size: 11px;
   background: transparent; border: 1px solid var(--unah-line);
   border-radius: 6px; cursor: pointer; color: var(--unah-ink-2);
   font-family: inherit;
+  white-space: nowrap;
 }
 .compare-toggle button.active {
   background: var(--unah-blue); color: #fff; border-color: var(--unah-blue);
