@@ -51,7 +51,7 @@ function SidePanel({ data, indicator, minV, maxV, selected, setSelected, compare
         <h2>{selected || "Honduras · Nacional"}</h2>
         <div className="subtitle">
           {selected
-            ? `Departamento de ${selected} · datos preliminares CAN 2024`
+            ? `Departamento de ${selected} · datos preliminares del Censo Agropecuario Nacional (CAN) 2024`
             : "Selecciona un departamento en el mapa para ver el desglose."}
         </div>
         <div className="compare-toggle">
@@ -303,6 +303,13 @@ function TableTab({ data, indicator, selected, setSelected, fmtV }) {
   const rows = Object.values(data.departamentos)
     .map(d => ({ name: d.name, ...d }))
     .sort((a, b) => (b[indicator.id] || 0) - (a[indicator.id] || 0));
+  // Evita columnas duplicadas: si el indicador YA es productores o superficie,
+  // no añadimos una columna fija con el mismo dato. Si el indicador es otro
+  // (p. ej. producción de un cultivo), se muestra como columna intermedia
+  // entre Productores y Sup. (ha).
+  const isProductoresInd = indicator.id === "productores_total";
+  const isSuperficieInd  = indicator.id === "superficie_total";
+  const showIndicatorCol = !isProductoresInd && !isSuperficieInd;
   return (
     <div className="side-section">
       <h3>Tabla detallada · {indicator.short}</h3>
@@ -310,8 +317,10 @@ function TableTab({ data, indicator, selected, setSelected, fmtV }) {
         <thead>
           <tr>
             <th>Depto.</th>
-            <th style={{textAlign:"right"}}>{indicator.short}</th>
             <th style={{textAlign:"right"}}>Productores</th>
+            {showIndicatorCol && (
+              <th style={{textAlign:"right"}}>{indicator.short}</th>
+            )}
             <th style={{textAlign:"right"}}>Sup. (ha)</th>
           </tr>
         </thead>
@@ -319,8 +328,10 @@ function TableTab({ data, indicator, selected, setSelected, fmtV }) {
           {rows.map(r => (
             <tr key={r.name} className={selected === r.name ? "active" : ""} onClick={() => setSelected(r.name)}>
               <td>{r.name}</td>
-              <td className="num">{fmtV(r[indicator.id])}</td>
               <td className="num">{window.fmtN(r.productores_total, 0)}</td>
+              {showIndicatorCol && (
+                <td className="num">{fmtV(r[indicator.id])}</td>
+              )}
               <td className="num">{window.fmtN(r.superficie_total, 0)}</td>
             </tr>
           ))}

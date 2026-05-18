@@ -22,7 +22,7 @@ function ScoreCardSAN({ data, name }) {
   // 6 indicadores clave SAN evaluados contra umbrales
   const items = [
     {
-      label: "Disponibilidad calórica (RAR)",
+      label: "Razón de Adecuación de Requerimientos calórica (RAR)",
       pillar: "Disponibilidad",
       value: dep.rar_calorica,
       fmt: (v) => v == null ? "—" : (v * 100).toFixed(0) + "%",
@@ -31,7 +31,7 @@ function ScoreCardSAN({ data, name }) {
       info: "Producción local cubre el requerimiento calórico FAO (2,100 kcal/cap·día)."
     },
     {
-      label: "Disponibilidad proteica (RAR)",
+      label: "Razón de Adecuación de Requerimientos proteica (RAR)",
       pillar: "Disponibilidad",
       value: dep.rar_proteica,
       fmt: (v) => v == null ? "—" : (v * 100).toFixed(0) + "%",
@@ -39,7 +39,7 @@ function ScoreCardSAN({ data, name }) {
       info: "Producción local cubre el requerimiento proteico FAO (50 g/cap·día)."
     },
     {
-      label: "Diversificación productiva (IDP)",
+      label: "Índice de Diversificación Productiva (IDP)",
       pillar: "Estabilidad",
       value: dep.idp_shannon,
       fmt: (v) => v == null ? "—" : v.toFixed(2),
@@ -63,7 +63,7 @@ function ScoreCardSAN({ data, name }) {
       info: "% de explotaciones que utilizan crédito formal."
     },
     {
-      label: "Vulnerabilidad productiva (IVPD)",
+      label: "Índice de Vulnerabilidad Productiva Departamental (IVPD)",
       pillar: "Acceso",
       value: dep.ivpd,
       fmt: (v) => v == null ? "—" : (v * 100).toFixed(1) + "%",
@@ -88,7 +88,7 @@ function ScoreCardSAN({ data, name }) {
     <div className="scorecard">
       <div className="scorecard-head">
         <div>
-          <div className="scorecard-eyebrow">Score Card SAN</div>
+          <div className="scorecard-eyebrow">Score Card · Seguridad Alimentaria y Nutricional (SAN)</div>
           <h3 className="scorecard-name">{name || "Honduras · Nacional"}</h3>
         </div>
         <div className={`scorecard-grade scorecard-grade-${gradeClass}`}>
@@ -263,7 +263,7 @@ function SimulatorWhatIf({ data, name }) {
     <div className="sim-whatif">
       <div className="sim-head">
         <h4>Simulador "¿Qué pasaría si…?"
-          <window.InfoTip text="Permite explorar el impacto hipotético en el IVPD (Índice de Vulnerabilidad Productiva) si se modificara la cobertura de servicios productivos. Útil para análisis de costo-efectividad de políticas. No constituye una proyección causal." />
+          <window.InfoTip text="Permite explorar el impacto hipotético en el Índice de Vulnerabilidad Productiva Departamental (IVPD) si se modificara la cobertura de servicios productivos. Útil para análisis de costo-efectividad de políticas. No constituye una proyección causal." />
         </h4>
         <button className="sim-reset" onClick={resetAll}>Restablecer</button>
       </div>
@@ -279,11 +279,11 @@ function SimulatorWhatIf({ data, name }) {
       </div>
       <div className="sim-result">
         <div className="sim-result-row">
-          <span>IVPD base</span>
+          <span>Índice de Vulnerabilidad Productiva Departamental (IVPD) base</span>
           <strong>{(baseIVPD * 100).toFixed(1)}%</strong>
         </div>
         <div className="sim-result-row">
-          <span>IVPD simulado</span>
+          <span>Índice de Vulnerabilidad Productiva Departamental (IVPD) simulado</span>
           <strong className={delta < -0.05 ? "sim-delta-strong-dn" : delta > 0.05 ? "sim-delta-strong-up" : ""}>
             {(newIVPD * 100).toFixed(1)}%
           </strong>

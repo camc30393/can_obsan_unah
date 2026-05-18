@@ -1716,6 +1716,29 @@ a:focus-visible {
   color: var(--unah-mute);
   font-style: italic;
 }
+.analysis-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: var(--unah-blue);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.analysis-pdf-btn:hover,
+.analysis-pdf-btn:focus-visible {
+  background: var(--unah-gold);
+  color: var(--unah-blue);
+  outline: none;
+}
 .analysis-body p {
   margin: 0 0 8px 0;
   font-size: 13px;
@@ -1723,6 +1746,8 @@ a:focus-visible {
   color: var(--unah-ink-2);
   text-wrap: pretty;
   font-variant-numeric: tabular-nums;
+  text-align: justify;
+  hyphens: auto;
 }
 .analysis-body p:last-child { margin-bottom: 0; }
 .analysis-body strong { color: var(--text-accent); font-weight: 600; }

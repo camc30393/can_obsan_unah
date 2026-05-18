@@ -70,6 +70,15 @@ function AnalysisBox({ data, indicator, selected }) {
         </div>
         <h3 className="analysis-title">{content.title}</h3>
         <div className="analysis-sub">{content.subtitle}</div>
+        <button
+          type="button"
+          className="analysis-pdf-btn"
+          onClick={() => window.exportDepartmentPDF?.(data, selected || null)}
+          title={selected ? `Descargar ficha técnica de ${selected}` : "Descargar ficha técnica nacional"}
+        >
+          <span aria-hidden="true">📄</span>
+          <span>Descargar ficha técnica</span>
+        </button>
       </header>
       <div className="analysis-body">
         {content.paragraphs.map((p, i) => (
@@ -133,7 +142,7 @@ function buildNational(data, indicator, fmt, fmtP) {
     ? t.riego_superficie / t.superficie_total : 0;
 
   return {
-    title: "Caracterización agropecuaria nacional · CAN 2024",
+    title: "Caracterización agropecuaria nacional · Censo Agropecuario Nacional (CAN) 2024",
     subtitle: `Indicador territorializado: ${indicator.label.toLowerCase()}`,
     paragraphs: [
       `El Censo Agropecuario Nacional 2024 documenta una estructura productiva conformada por <strong>${fmt(t.productores_total)} productores</strong> y <strong>${fmt(t.explotaciones)} explotaciones</strong>, distribuidos sobre <strong>${fmt(t.superficie_total, 0)} hectáreas</strong>. El promedio de <strong>${fmt(haPorProductor, 1)} ha por productor</strong> revela una estructura agraria predominantemente campesina y minifundista, característica de economías centroamericanas con alta presión sobre la tierra. La participación femenina alcanza el <strong>${fmtP(t.pct_mujeres, 1)}</strong> del padrón productor${topMuj[0] ? `, con su expresión territorial más alta en <strong>${topMuj[0].name}</strong> (${fmtP(topMuj[0].v, 1)})` : ""}, lo que confirma una feminización rural creciente que demanda instrumentos de política específicos.`,
@@ -243,7 +252,7 @@ function buildDepartmental(data, indicator, name, fmt, fmtP) {
 
   return {
     title: name,
-    subtitle: `Perfil agropecuario departamental · CAN 2024`,
+    subtitle: `Perfil agropecuario departamental · Censo Agropecuario Nacional (CAN) 2024`,
     paragraphs: [
       `<strong>${name}</strong> ${cuartil(rIndic.rank, rIndic.total)} del país en <em>${indicator.label.toLowerCase()}</em>, ocupando la posición <strong>${ordinal(rIndic.rank)}</strong> entre ${rIndic.total} departamentos con un valor de <strong>${indicFmt}</strong>${aporteFor(indicator.id, d, t) ? ` (${fmtP(aporteFor(indicator.id, d, t), 1)} del agregado nacional)` : ""}. Concentra <strong>${fmt(d.productores_total)} productores</strong> —el ${fmtP(aporteProd, 1)} del padrón nacional— sobre <strong>${fmt(d.superficie_total, 0)} ha</strong> de superficie agropecuaria, lo que arroja una escala media de <strong>${fmt(haPorProductor, 1)} ha por productor</strong> ${escalaRel > 1.2 ? "<strong>superior</strong> al promedio nacional, indicativo de unidades productivas de mayor tamaño" : escalaRel < 0.8 ? "<strong>inferior</strong> al promedio nacional, característico de una estructura minifundista intensa" : "comparable al promedio nacional"}.`,
       `La estructura productiva del departamento se articula principalmente en torno a la <strong>${vocacion.lab}</strong>, con un aporte de <strong>${fmtP(vocacion.aporte, 1)}</strong> al total nacional del rubro, complementada por la ${vocSecundaria.lab} (${fmtP(vocSecundaria.aporte, 1)}). En cultivos clave registra <strong>${fmt(d.maiz_produccion_tm, 0)} TM de maíz</strong> (posición ${rMaiz.rank} de ${rMaiz.total}), <strong>${fmt(d.cafe_produccion, 0)} TM de café</strong> (posición ${rCafe.rank}) y un hato bovino de <strong>${fmt(d.bovinos_existencias, 0)} cabezas</strong> (posición ${rBov.rank}). La participación femenina en la jefatura productiva alcanza el <strong>${fmtP(d.pct_mujeres, 1)}</strong>, ubicándose en el lugar <strong>${rMuj.rank}</strong> del país y constituyendo un dato relevante para el diseño de políticas con enfoque de género.`,

@@ -73,7 +73,7 @@ function exportDepartmentPDF(data, depName) {
     doc.setFontSize(11);
     doc.setTextColor(...COLORS.ink);
     const lines = doc.splitTextToSize(
-      "El INE no reportó información agropecuaria desagregada para este departamento en la publicación preliminar del CAN 2024. Una vez se publiquen los resultados definitivos, este informe se actualizará automáticamente desde datos/can_2024.json.",
+      "El INE no reportó información agropecuaria desagregada para este departamento en la publicación preliminar del Censo Agropecuario Nacional (CAN) 2024. Una vez se publiquen los resultados definitivos, este informe se actualizará automáticamente desde datos/can_2024.json.",
       W - 2 * M
     );
     doc.text(lines, M, y);
@@ -119,12 +119,12 @@ function exportDepartmentPDF(data, depName) {
     { lab: "Productores",    val: fmtN(target.productores_total),                              sub: `${fmtPct(target.pct_mujeres, 1)} mujeres` },
     { lab: "Explotaciones",  val: fmtN(target.explotaciones),                                  sub: "unidades económicas" },
     { lab: "Superficie",     val: fmtN(target.superficie_total, 0) + " ha",                    sub: `${fmtN(target.superficie_total / target.productores_total, 1)} ha/prod.` },
-    { lab: "RAR calórica",   val: fmtPct(target.rar_calorica, 1),                              sub: "vs. 2,100 kcal/día" },
+    { lab: "RAR calórica",   val: fmtPct(target.rar_calorica, 1),                              sub: "Razón de Adec. Requer. · vs. 2,100 kcal/día" },
   ] : [
     { lab: "Productores",    val: fmtN(target.productores_total),                              sub: `${fmtPct(target.pct_mujeres, 1)} mujeres` },
     { lab: "Superficie",     val: fmtN(target.superficie_total, 0) + " ha",                    sub: `pos. ${rankOf(data.departamentos, name, "superficie_total").rank}/${rankOf(data.departamentos, name, "superficie_total").total}` },
-    { lab: "RAR calórica",   val: fmtPct(target.rar_calorica, 1),                              sub: "vs. 2,100 kcal/día" },
-    { lab: "IVPD",           val: fmtPct(target.ivpd, 1),                                      sub: "vulnerabilidad productiva" },
+    { lab: "RAR calórica",   val: fmtPct(target.rar_calorica, 1),                              sub: "Razón de Adec. Requer. · vs. 2,100 kcal" },
+    { lab: "IVPD",           val: fmtPct(target.ivpd, 1),                                      sub: "Índ. Vulnerab. Productiva Departamental" },
   ];
 
   const kpiW = (W - 2 * M - 12) / 4;
@@ -176,7 +176,7 @@ function exportDepartmentPDF(data, depName) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(...COLORS.blue);
-    doc.text("SCORE CARD · INDICADORES SAN CLAVE", M, y);
+    doc.text("SCORE CARD · INDICADORES DE SEGURIDAD ALIMENTARIA Y NUTRICIONAL (SAN)", M, y);
     y += 14;
     const score = buildScoreCard(target);
     const cellH = 22;
@@ -206,7 +206,7 @@ function exportDepartmentPDF(data, depName) {
   doc.setTextColor(...COLORS.mute);
   doc.text(`OBSAN-UNAH · Generado el ${new Date().toLocaleDateString("es-HN", { year:"numeric", month:"long", day:"numeric" })}`, M, footY);
   doc.text(`Página 1/1`, W - M, footY, { align: "right" });
-  doc.text("Cita: OBSAN (2025). Tablero del CAN 2024. UNAH. https://obsan.unah.edu.hn", M, footY + 8);
+  doc.text("Cita: OBSAN (2025). Tablero del Censo Agropecuario Nacional (CAN) 2024. UNAH. https://obsan.unah.edu.hn", M, footY + 8);
 
   doc.save(`OBSAN-CAN2024_${name.replace(/\s/g, "_")}.pdf`);
 }
@@ -216,9 +216,9 @@ function buildNarrativeNational(data) {
   const t = data.total;
   const haProd = t.superficie_total / t.productores_total;
   return [
-    `El CAN 2024 documenta ${fmtN(t.productores_total)} productores y ${fmtN(t.explotaciones)} explotaciones distribuidos sobre ${fmtN(t.superficie_total, 0)} hectáreas. La escala media de ${fmtN(haProd, 1)} ha por productor revela una estructura agraria predominantemente campesina y minifundista. La participación femenina alcanza el ${fmtPct(t.pct_mujeres, 1)} del padrón productor.`,
+    `El Censo Agropecuario Nacional (CAN) 2024 documenta ${fmtN(t.productores_total)} productores y ${fmtN(t.explotaciones)} explotaciones distribuidos sobre ${fmtN(t.superficie_total, 0)} hectáreas. La escala media de ${fmtN(haProd, 1)} ha por productor revela una estructura agraria predominantemente campesina y minifundista. La participación femenina alcanza el ${fmtPct(t.pct_mujeres, 1)} del padrón productor.`,
     `En cultivos básicos, la producción agregada es de ${fmtN(t.maiz_produccion_tm, 0)} TM de maíz y ${fmtN(t.frijol_produccion_tm, 0)} TM de frijol. La producción de café —principal cultivo permanente y rubro exportador— alcanza ${fmtN(t.cafe_produccion, 0)} TM en ${fmtN(t.cafe_area, 0)} ha. El hato bovino se estima en ${fmtN(t.bovinos_existencias, 0)} cabezas.`,
-    `La disponibilidad alimentaria local cubre el ${fmtPct(t.rar_calorica, 1)} del requerimiento calórico nacional (2,100 kcal/cap·día) y el ${fmtPct(t.rar_proteica, 1)} del proteico. Los servicios productivos muestran brechas estructurales persistentes: ${fmtPct(t.at_pct, 1)} con asistencia técnica, ${fmtPct(t.credito_pct, 1)} con crédito formal, ${fmtPct(t.maquinaria_pct, 1)} con maquinaria.`,
+    `La disponibilidad alimentaria local cubre el ${fmtPct(t.rar_calorica, 1)} del requerimiento calórico nacional (Razón de Adecuación de Requerimientos calórica — RAR — sobre 2,100 kcal/cap·día) y el ${fmtPct(t.rar_proteica, 1)} del proteico. Los servicios productivos muestran brechas estructurales persistentes: ${fmtPct(t.at_pct, 1)} con asistencia técnica, ${fmtPct(t.credito_pct, 1)} con crédito formal, ${fmtPct(t.maquinaria_pct, 1)} con maquinaria.`,
   ];
 }
 function buildNarrativeDept(data, name) {
@@ -230,19 +230,19 @@ function buildNarrativeDept(data, name) {
   const aporteProd = t.productores_total ? d.productores_total / t.productores_total : 0;
   return [
     `${name} concentra ${fmtN(d.productores_total)} productores (${fmtPct(aporteProd, 1)} del país) en una superficie agropecuaria de ${fmtN(d.superficie_total, 0)} ha, con una escala media de ${fmtN(haProd, 1)} ha por productor. La participación femenina es del ${fmtPct(d.pct_mujeres, 1)}.`,
-    `En disponibilidad alimentaria, la producción local cubre el ${fmtPct(d.rar_calorica, 1)} del requerimiento calórico (posición ${rRAR.rank} de ${rRAR.total} departamentos). La producción es de ${fmtN(d.maiz_produccion_tm || 0, 0)} TM de maíz, ${fmtN(d.frijol_produccion_tm || 0, 0)} TM de frijol y ${fmtN(d.cafe_produccion || 0, 0)} TM de café.`,
+    `En disponibilidad alimentaria, la producción local cubre el ${fmtPct(d.rar_calorica, 1)} del requerimiento calórico — Razón de Adecuación de Requerimientos (RAR) calórica — (posición ${rRAR.rank} de ${rRAR.total} departamentos). La producción es de ${fmtN(d.maiz_produccion_tm || 0, 0)} TM de maíz, ${fmtN(d.frijol_produccion_tm || 0, 0)} TM de frijol y ${fmtN(d.cafe_produccion || 0, 0)} TM de café.`,
     `El Índice de Vulnerabilidad Productiva Departamental (IVPD) es ${fmtPct(d.ivpd, 1)} (posición ${rIVPD.rank} de ${rIVPD.total}). En cobertura de servicios: ${fmtPct(d.at_pct, 1)} con asistencia técnica, ${fmtPct(d.credito_pct, 1)} con crédito formal, ${fmtPct(d.maquinaria_pct, 1)} con maquinaria. Estas brechas demandan políticas focalizadas según vocación productiva.`,
   ];
 }
 function buildScoreCard(target) {
   const status = (v, ok, warn) => v == null ? "x" : v >= ok ? "ok" : v >= warn ? "warn" : "alert";
   return [
-    { label: "RAR calórica (disponibilidad alimentaria)",  value: fmtPct(target.rar_calorica, 1), status: status(target.rar_calorica, 1.0, 0.5) },
-    { label: "RAR proteica (calidad nutricional)",          value: fmtPct(target.rar_proteica, 1), status: status(target.rar_proteica, 1.0, 0.5) },
-    { label: "IDP · Diversificación productiva",            value: target.idp_shannon ? target.idp_shannon.toFixed(2) : "—", status: status(target.idp_shannon, 0.7, 0.5) },
+    { label: "Razón de Adecuación de Requerimientos calórica (RAR)",  value: fmtPct(target.rar_calorica, 1), status: status(target.rar_calorica, 1.0, 0.5) },
+    { label: "Razón de Adecuación de Requerimientos proteica (RAR)",  value: fmtPct(target.rar_proteica, 1), status: status(target.rar_proteica, 1.0, 0.5) },
+    { label: "Índice de Diversificación Productiva (IDP)",            value: target.idp_shannon ? target.idp_shannon.toFixed(2) : "—", status: status(target.idp_shannon, 0.7, 0.5) },
     { label: "% explotaciones con asistencia técnica",     value: fmtPct(target.at_pct, 1), status: status(target.at_pct, 0.20, 0.10) },
     { label: "% explotaciones con crédito formal",         value: fmtPct(target.credito_pct, 1), status: status(target.credito_pct, 0.08, 0.04) },
-    { label: "IVPD · Vulnerabilidad productiva",           value: fmtPct(target.ivpd, 1), status: target.ivpd == null ? "x" : target.ivpd <= 0.70 ? "ok" : target.ivpd <= 0.85 ? "warn" : "alert" },
+    { label: "Índice de Vulnerabilidad Productiva Departamental (IVPD)",           value: fmtPct(target.ivpd, 1), status: target.ivpd == null ? "x" : target.ivpd <= 0.70 ? "ok" : target.ivpd <= 0.85 ? "warn" : "alert" },
   ];
 }
 

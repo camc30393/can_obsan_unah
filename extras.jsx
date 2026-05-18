@@ -145,20 +145,20 @@ function MethodologyModal({ onClose }) {
       <p><strong>Fuente primaria.</strong> Censo Agropecuario Nacional (CAN) 2024, Instituto Nacional de Estadística (INE) de Honduras. Resultados preliminares del año agrícola 2023–2024, publicados en julio de 2025.</p>
       <p><strong>Unidades estadísticas.</strong> Las dos unidades básicas del CAN son el <em>productor</em> (persona natural u organización que dirige técnica y económicamente la actividad) y la <em>explotación</em> (unidad económica bajo dirección única). Un productor puede operar más de una explotación.</p>
       <p><strong>Fecha de referencia.</strong> Las existencias pecuarias se levantaron al 1 de septiembre de 2024. Los cultivos refieren al ciclo agrícola 2023–2024 (primera + postrera).</p>
-      <p><strong>Población departamental.</strong> Las cifras per cápita (IDAL, densidad productiva) utilizan proyecciones de población a mitad de año 2024 del INE, con base en el Censo de Población y Vivienda 2013. Total nacional utilizado: 9,169,441 hab.</p>
+      <p><strong>Población departamental.</strong> Las cifras per cápita (Índice de Disponibilidad Alimentaria Local — IDAL —, densidad productiva) utilizan proyecciones de población a mitad de año 2024 del INE, con base en el Censo de Población y Vivienda 2013. Total nacional utilizado: 9,169,441 hab.</p>
       <p><strong>Cobertura geográfica.</strong> 18 departamentos de Honduras. Los polígonos de los departamentos provienen de OpenStreetMap (recuperados vía Nominatim, mayo 2025) y se redibujaron con un nivel de simplificación moderado para optimizar el desempeño del mapa 3D.</p>
       <p><strong>Cobertura del CAN 2024 e Islas de la Bahía.</strong> El INE no reportó información agropecuaria desagregada para el departamento insular de <em>Islas de la Bahía</em> en la publicación preliminar del CAN 2024. En consecuencia, este territorio se representa como <em>"Sin dato registrado"</em> en el mapa y se excluye de los rankings, índices compuestos, regresiones y análisis LISA. Una vez se publiquen los resultados definitivos del INE el campo se actualizará en <code>datos/can_2024.json</code>.</p>
-      <p><strong>Balance real de disponibilidad nacional.</strong> Las RAR calculadas a partir de la producción local capturan únicamente la <em>oferta agropecuaria interna</em>. El balance alimentario completo requiere sumar las importaciones netas. Según estimaciones del Banco Central de Honduras (BCH) y SICA para 2023–2024, Honduras importa aproximadamente <strong>750,000 TM</strong> de maíz, <strong>35,000 TM</strong> de frijol y <strong>95,000 TM</strong> de arroz al año. Al incorporar estas importaciones, la disponibilidad efectiva nacional asciende a una RAR calórica del <strong>~87%</strong>, con una <strong>dependencia de importaciones cercana al 52%</strong> de las calorías suministradas por granos básicos. Esta lectura cambia la interpretación de política pública: el déficit no es absoluto sino estructural, derivado de la baja productividad local.</p>
+      <p><strong>Balance real de disponibilidad nacional.</strong> Las Razones de Adecuación de Requerimientos (RAR) calculadas a partir de la producción local capturan únicamente la <em>oferta agropecuaria interna</em>. El balance alimentario completo requiere sumar las importaciones netas. Según estimaciones del Banco Central de Honduras (BCH) y SICA para 2023–2024, Honduras importa aproximadamente <strong>750,000 TM</strong> de maíz, <strong>35,000 TM</strong> de frijol y <strong>95,000 TM</strong> de arroz al año. Al incorporar estas importaciones, la disponibilidad efectiva nacional asciende a una RAR calórica del <strong>~87%</strong>, con una <strong>dependencia de importaciones cercana al 52%</strong> de las calorías suministradas por granos básicos. Esta lectura cambia la interpretación de política pública: el déficit no es absoluto sino estructural, derivado de la baja productividad local.</p>
       <p><strong>Índices compuestos.</strong></p>
       <ul>
-        <li><strong>IDAL · Disponibilidad alimentaria local</strong>: (maíz_TM + frijol_TM) × 1,000 ÷ población.</li>
-        <li><strong>IDP · Diversificación productiva</strong>: índice de Shannon-Weaver normalizado sobre cinco categorías de uso del suelo (granos, anuales, permanentes, café, descanso).</li>
-        <li><strong>IVPD · Vulnerabilidad productiva</strong>: promedio simple de cuatro brechas: <em>1 − % asist. téc.</em>, <em>1 − % crédito</em>, <em>1 − % maquinaria</em>, <em>1 − % riego</em>.</li>
+        <li><strong>Índice de Disponibilidad Alimentaria Local (IDAL)</strong>: (maíz_TM + frijol_TM) × 1,000 ÷ población.</li>
+        <li><strong>Índice de Diversificación Productiva (IDP)</strong>: índice de Shannon-Weaver normalizado sobre cinco categorías de uso del suelo (granos, anuales, permanentes, café, descanso).</li>
+        <li><strong>Índice de Vulnerabilidad Productiva Departamental (IVPD)</strong>: promedio simple de cuatro brechas: <em>1 − % asist. téc.</em>, <em>1 − % crédito</em>, <em>1 − % maquinaria</em>, <em>1 − % riego</em>.</li>
         <li><strong>Autosuficiencia</strong>: superficie de granos básicos ÷ superficie agropecuaria total.</li>
         <li><strong>CR₃ (concentración territorial)</strong>: suma de los tres mayores departamentos respecto al total nacional del indicador activo.</li>
       </ul>
       <p><strong>Advertencias.</strong> Los datos del CAN 2024 son <em>preliminares</em>; los totales pueden ajustarse en publicaciones definitivas del INE. Las cifras de subtotal pueden no sumar exactamente al total nacional por redondeos. Los polígonos geográficos no constituyen fronteras oficiales — para uso cartográfico legal consúltense los mapas del Instituto Geográfico Nacional (IGN).</p>
-      <p><strong>Marco SAN.</strong> El tablero adopta el marco de los cuatro pilares de Seguridad Alimentaria y Nutricional (FAO/CFS): <em>disponibilidad, acceso, utilización y estabilidad</em>. El análisis enfatiza disponibilidad (oferta agregada y per cápita) y acceso (cobertura de servicios productivos institucionales).</p>
+      <p><strong>Marco de Seguridad Alimentaria y Nutricional (SAN).</strong> El tablero adopta el marco de los cuatro pilares de Seguridad Alimentaria y Nutricional (FAO/CFS): <em>disponibilidad, acceso, utilización y estabilidad</em>. El análisis enfatiza disponibilidad (oferta agregada y per cápita) y acceso (cobertura de servicios productivos institucionales).</p>
     </Modal>
   );
 }
@@ -186,7 +186,7 @@ function GlossaryModal({ onClose }) {
     ["CR₃", "Concentración territorial: aporte conjunto de los tres principales departamentos al total nacional de un indicador."],
   ];
   return (
-    <Modal title="Glosario · términos SAN y agropecuarios" onClose={onClose} width={680}>
+    <Modal title="Glosario · términos de Seguridad Alimentaria y Nutricional (SAN) y agropecuarios" onClose={onClose} width={680}>
       <dl className="glossary">
         {items.map(([term, def]) => (
           <div key={term}>
@@ -342,7 +342,7 @@ function SANAlerts({ dep, total }) {
           <line x1="12" y1="9" x2="12" y2="13"></line>
           <line x1="12" y1="17" x2="12.01" y2="17"></line>
         </svg>
-        <span>Alertas SAN ({alerts.length})</span>
+        <span>Alertas de Seguridad Alimentaria y Nutricional (SAN) ({alerts.length})</span>
       </div>
       <ul>
         {alerts.map((a, i) => (

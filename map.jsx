@@ -150,7 +150,7 @@ function Footer() {
           <ul className="footer-links">
             <li><a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); }}>Volver al inicio del tablero</a></li>
             <li><a href="https://obsan.unah.edu.hn/" target="_blank" rel="noopener">OBSAN — UNAH ↗</a></li>
-            <li><a href="https://www.ine.gob.hn/" target="_blank" rel="noopener">CAN 2024 (INE) ↗</a></li>
+            <li><a href="https://www.ine.gob.hn/" target="_blank" rel="noopener">Censo Agropecuario Nacional (CAN) 2024 — INE ↗</a></li>
           </ul>
         </div>
       </div>
@@ -437,7 +437,7 @@ function MapView({ geo, data, indicator, minV, maxV, tweaks, selected, setSelect
           </select>
           {indicator.pillar && (
             <div className="indicator-pillar">
-              Pilar SAN · <strong>{indicator.pillar}</strong>
+              Pilar de Seguridad Alimentaria y Nutricional (SAN) · <strong>{indicator.pillar}</strong>
             </div>
           )}
         </div>

@@ -250,13 +250,13 @@ function buildPresentationSlides(data) {
       ),
     },
     {
-      title: "Disponibilidad alimentaria · pilar SAN",
-      subtitle: `Razón de Adecuación: ${(t.rar_calorica * 100).toFixed(1)}% calórica · ${(t.rar_proteica * 100).toFixed(1)}% proteica`,
+      title: "Disponibilidad alimentaria · pilar de Seguridad Alimentaria y Nutricional (SAN)",
+      subtitle: `Razón de Adecuación de Requerimientos (RAR): ${(t.rar_calorica * 100).toFixed(1)}% calórica · ${(t.rar_proteica * 100).toFixed(1)}% proteica`,
       body: (
         <div className="pm-grid-3">
           <PMStat label="kcal/cap·día" value={fmt(t.kcal_cap_dia, 0)} sub="requerimiento: 2,100" big />
           <PMStat label="Proteína g/cap·día" value={fmt(t.prot_cap_dia, 1)} sub="requerimiento: 50" big />
-          <PMStat label="IDAL granos básicos" value={fmt(t.idal_kg_capita, 0) + " kg"} sub="por habitante al año" big />
+          <PMStat label="Índice de Disponibilidad Alimentaria Local (IDAL) — granos básicos" value={fmt(t.idal_kg_capita, 0) + " kg"} sub="por habitante al año" big />
         </div>
       ),
     },
@@ -285,8 +285,8 @@ function buildPresentationSlides(data) {
       ),
     },
     {
-      title: "Implicaciones para la política pública SAN",
-      subtitle: "Lecturas del CAN 2024 desde el OBSAN-UNAH",
+      title: "Implicaciones para la política pública en Seguridad Alimentaria y Nutricional (SAN)",
+      subtitle: "Lecturas del Censo Agropecuario Nacional (CAN) 2024 desde el OBSAN-UNAH",
       body: (
         <ul className="pm-bullets">
           <li><strong>Disponibilidad heterogénea:</strong> la producción local cubre solo el {(t.rar_calorica * 100).toFixed(0)}% del requerimiento calórico nacional, con marcadas asimetrías entre Olancho (excedentario) y los departamentos del corredor seco e insulares.</li>
