@@ -247,3 +247,153 @@ function buildScoreCard(target) {
 }
 
 window.exportDepartmentPDF = exportDepartmentPDF;
+
+// ─────────────────────────────────────────────────────────────────────────
+// Generador: Glosario y ficha técnica de indicadores
+// ----------------------------------------------------------------------------
+// Recibe la lista de indicadores del mapa (window.INDICATORS) y las secciones
+// conceptuales del glosario (window.GLOSSARY_SECTIONS, definidas en extras.jsx).
+// Produce un PDF multipágina con la paleta institucional UNAH/OBSAN.
+// ─────────────────────────────────────────────────────────────────────────
+function exportGlossaryPDF(indicators, sections) {
+  if (!window.jspdf?.jsPDF) {
+    alert("jsPDF no se cargó. Verifica la conexión a Internet.");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const W = 595.28, H = 841.89, M = 46;
+  const COLW = W - 2 * M;
+  let y = 0;
+  let page = 1;
+
+  const fecha = new Date().toLocaleDateString("es-HN", { year: "numeric", month: "long", day: "numeric" });
+
+  function headerBand() {
+    doc.setFillColor(...COLORS.blue);
+    doc.rect(0, 0, W, 72, "F");
+    doc.setFillColor(...COLORS.gold);
+    doc.rect(0, 72, W, 3, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(232, 199, 106);
+    doc.text("UNAH · Observatorio en Seguridad Alimentaria y Nutricional (OBSAN)", M, 30);
+    doc.setFont("times", "bold");
+    doc.setFontSize(15);
+    doc.setTextColor(255, 255, 255);
+    doc.text("Censo Agropecuario Nacional (CAN) 2024", M, 52);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(200, 215, 230);
+    doc.text("Glosario y ficha técnica de indicadores", M, 64);
+    y = 100;
+  }
+  function footer() {
+    const footY = H - 30;
+    doc.setDrawColor(...COLORS.line);
+    doc.setLineWidth(0.5);
+    doc.line(M, footY - 10, W - M, footY - 10);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(...COLORS.mute);
+    doc.text(`OBSAN-UNAH · Generado el ${fecha}`, M, footY);
+    doc.text(`Página ${page}`, W - M, footY, { align: "right" });
+  }
+  function ensure(space) {
+    if (y + space > H - 48) {
+      footer();
+      doc.addPage();
+      page++;
+      y = 54;
+    }
+  }
+  function sectionHeading(txt) {
+    ensure(40);
+    doc.setFillColor(245, 244, 238);
+    doc.rect(M, y - 13, COLW, 24, "F");
+    doc.setFillColor(...COLORS.gold);
+    doc.rect(M, y - 13, 3, 24, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...COLORS.blue);
+    doc.text(txt.toUpperCase(), M + 11, y + 3);
+    y += 30;
+  }
+  function groupHeading(txt) {
+    ensure(26);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(...COLORS.green);
+    doc.text(txt, M, y);
+    doc.setDrawColor(...COLORS.green);
+    doc.setLineWidth(0.6);
+    const tw = doc.getTextWidth(txt);
+    doc.line(M, y + 3, M + tw, y + 3);
+    y += 16;
+  }
+  // Término con definición; `unit` opcional dibuja una pastilla a la derecha del término.
+  function entry(term, def, unit) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    const reserva = unit ? 90 : 0;
+    const tLines = doc.splitTextToSize(term, COLW - reserva);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    const dLines = doc.splitTextToSize(def, COLW);
+    const blockH = tLines.length * 12 + dLines.length * 11.5 + 11;
+    ensure(blockH);
+
+    // Término
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(...COLORS.blue);
+    doc.text(tLines, M, y);
+    // Pastilla de unidad alineada a la derecha de la primera línea
+    if (unit) {
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7);
+      const uw = doc.getTextWidth(unit.toUpperCase()) + 12;
+      const ux = W - M - uw;
+      doc.setFillColor(232, 238, 245);
+      doc.roundedRect(ux, y - 8, uw, 13, 3, 3, "F");
+      doc.setTextColor(...COLORS.blue);
+      doc.text(unit.toUpperCase(), ux + 6, y + 1);
+    }
+    y += tLines.length * 12 + 1;
+    // Definición
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(...COLORS.mute);
+    doc.text(dLines, M, y);
+    y += dLines.length * 11.5 + 10;
+
+    // Separador tenue
+    doc.setDrawColor(...COLORS.line);
+    doc.setLineWidth(0.4);
+    doc.line(M, y - 5, W - M, y - 5);
+  }
+
+  headerBand();
+
+  // Secciones conceptuales
+  (sections || []).forEach(section => {
+    sectionHeading(section.title);
+    section.items.forEach(([term, def]) => entry(term, def));
+    y += 6;
+  });
+
+  // Ficha técnica de indicadores del mapa, agrupada por categoría
+  sectionHeading("Ficha técnica de indicadores del mapa");
+  const groups = {};
+  (indicators || []).forEach(i => { (groups[i.g] = groups[i.g] || []).push(i); });
+  Object.entries(groups).forEach(([g, list]) => {
+    groupHeading(g);
+    list.forEach(ind => entry(ind.label, ind.info || "—", ind.unit));
+    y += 6;
+  });
+
+  footer();
+  doc.save("Glosario-CAN2024-OBSAN.pdf");
+}
+
+window.exportGlossaryPDF = exportGlossaryPDF;

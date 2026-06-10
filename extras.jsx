@@ -165,36 +165,111 @@ function MethodologyModal({ onClose }) {
 
 // ============================================================================
 // <GlossaryModal /> — glosario
+// ----------------------------------------------------------------------------
+// Estructurado en secciones temáticas. La última sección ("Ficha técnica de
+// indicadores del mapa") se genera automáticamente a partir de window.INDICATORS,
+// de modo que el glosario siempre refleja TODOS los indicadores disponibles en
+// el selector del mapa, con su unidad y definición metodológica.
+// Se expone GLOSSARY_SECTIONS en window para que pdf.jsx genere el PDF.
 // ============================================================================
+const GLOSSARY_SECTIONS = [
+  {
+    title: "Conceptos y unidades",
+    items: [
+      ["Productor", "Persona natural u organización que ejerce la dirección técnica y económica de una o varias explotaciones agropecuarias."],
+      ["Explotación", "Unidad económica que realiza actividades agropecuarias bajo una única dirección, independientemente del régimen de tenencia."],
+      ["Hectárea (ha)", "Unidad de superficie equivalente a 10,000 m² (100 m × 100 m)."],
+      ["Tonelada métrica (TM)", "Unidad de masa equivalente a 1,000 kilogramos."],
+      ["Granos básicos", "En Honduras: maíz, frijol, arroz y sorgo/maicillo. Constituyen el núcleo de la dieta nacional."],
+      ["Cultivos permanentes", "Cultivos cuyo ciclo productivo supera el año (café, cacao, palma africana, frutales, etc.)."],
+      ["Tenencia", "Régimen jurídico bajo el cual el productor accede a la tierra: propia, nacional, ejidal, consejo territorial, arrendada u otra."],
+      ["Asistencia técnica", "Servicios de extensión agrícola provistos por instituciones públicas, privadas u organizaciones no gubernamentales."],
+      ["Crédito formal", "Financiamiento productivo otorgado por bancos, cajas rurales o fondos institucionales."],
+    ],
+  },
+  {
+    title: "Marco de Seguridad Alimentaria y Nutricional (SAN)",
+    items: [
+      ["Seguridad Alimentaria y Nutricional (SAN)", "Situación en la que toda persona tiene, en todo momento, acceso físico, económico y social a alimentos suficientes, inocuos y nutritivos que satisfacen sus necesidades para una vida activa y sana."],
+      ["Disponibilidad", "Pilar de Seguridad Alimentaria y Nutricional (SAN). Oferta agregada de alimentos en un territorio (producción local, importaciones, ayudas)."],
+      ["Acceso", "Pilar de Seguridad Alimentaria y Nutricional (SAN). Capacidad de los hogares para obtener los alimentos disponibles (recursos, ingresos, mercados)."],
+      ["Utilización", "Pilar de Seguridad Alimentaria y Nutricional (SAN). Aprovechamiento biológico de los alimentos (agua, salud, prácticas de higiene, sanidad)."],
+      ["Estabilidad", "Pilar de Seguridad Alimentaria y Nutricional (SAN). Sostenimiento en el tiempo de los otros tres pilares ante choques (climáticos, económicos, sanitarios)."],
+    ],
+  },
+  {
+    title: "Índices y métodos estadísticos",
+    items: [
+      ["Razón de Adecuación de Requerimientos (RAR)", "Cociente entre la disponibilidad local de un nutriente (kcal o proteína per cápita derivada de la producción de granos básicos) y el requerimiento mínimo de referencia (2,100 kcal/día; 50 g proteína/día). RAR ≥ 1 indica autosuficiencia; RAR < 1, déficit."],
+      ["Índice de Disponibilidad Alimentaria Local (IDAL)", "Producción anual de granos básicos (maíz + frijol) dividida por la población departamental, expresada en kilogramos por habitante al año."],
+      ["Índice de Diversificación Productiva (IDP)", "Índice de Shannon-Weaver normalizado (0 = monocultivo, 1 = máxima diversificación) calculado sobre la proporción de área dedicada a cinco rubros: granos básicos, anuales, permanentes, café y descanso."],
+      ["Índice de Vulnerabilidad Productiva Departamental (IVPD)", "Promedio simple de cuatro brechas de acceso a servicios productivos: 1 − % asistencia técnica, 1 − % crédito, 1 − % maquinaria, 1 − % riego. Valores altos (cercanos a 1) indican mayor vulnerabilidad."],
+      ["Autosuficiencia", "Proporción de la superficie agropecuaria del departamento dedicada a granos básicos. Valores altos sugieren orientación a la subsistencia familiar."],
+      ["Densidad productiva", "Número de productores agropecuarios por cada 1,000 habitantes. Aproximación a la ruralidad y a la dependencia económica del sector primario."],
+      ["Índice de Shannon-Weaver", "Medida de diversidad ecológica adaptada al análisis productivo: H = −Σ pᵢ · ln(pᵢ); se normaliza como H / H_máx para acotarla al rango 0–1."],
+      ["Razón de concentración (CR₃)", "Aporte conjunto de los tres principales departamentos respecto al total nacional de un indicador. Mide la concentración territorial."],
+      ["Coeficiente de correlación de Pearson (r)", "Mide la fuerza y el sentido de la relación lineal entre dos indicadores en el diagrama de dispersión. Varía entre −1 y +1."],
+    ],
+  },
+];
+
 function GlossaryModal({ onClose }) {
-  const items = [
-    ["Productor", "Persona natural u organización que ejerce la dirección técnica y económica de una o varias explotaciones agropecuarias."],
-    ["Explotación", "Unidad económica que realiza actividades agropecuarias bajo una única dirección, independientemente del régimen de tenencia."],
-    ["Hectárea (ha)", "Unidad de superficie equivalente a 10,000 m² (100 m × 100 m)."],
-    ["Tonelada métrica (TM)", "1,000 kilogramos."],
-    ["Granos básicos", "En Honduras: maíz, frijol, arroz y sorgo/maicillo. Núcleo de la dieta nacional."],
-    ["Cultivos permanentes", "Cultivos cuyo ciclo productivo supera el año (café, cacao, palma africana, frutales, etc.)."],
-    ["Tenencia", "Régimen jurídico bajo el cual el productor accede a la tierra: propia, nacional, ejidal, consejo territorial, arrendada u otra."],
-    ["Asistencia técnica", "Servicios de extensión agrícola provistos por instituciones públicas, privadas u ONG."],
-    ["Crédito formal", "Financiamiento productivo otorgado por bancos, cajas rurales o fondos institucionales."],
-    ["SAN", "Seguridad Alimentaria y Nutricional: situación en la que toda persona tiene, en todo momento, acceso físico, económico y social a alimentos suficientes, inocuos y nutritivos."],
-    ["Disponibilidad", "Pilar SAN. Oferta agregada de alimentos en un territorio (producción local, importaciones, ayudas)."],
-    ["Acceso", "Pilar SAN. Capacidad de los hogares para obtener los alimentos disponibles (recursos, ingresos, mercados)."],
-    ["Utilización", "Pilar SAN. Aprovechamiento biológico de los alimentos (agua, salud, prácticas, sanidad)."],
-    ["Estabilidad", "Pilar SAN. Sostenimiento en el tiempo de los otros tres pilares ante shocks."],
-    ["Shannon-Weaver", "Medida de diversidad ecológica adaptada al análisis productivo. H = −Σ pᵢ ln(pᵢ); normalizada como H/H_máx."],
-    ["CR₃", "Concentración territorial: aporte conjunto de los tres principales departamentos al total nacional de un indicador."],
-  ];
+  const indicators = window.INDICATORS || [];
+  // Agrupar los indicadores del mapa por su categoría (campo `g`)
+  const groups = {};
+  indicators.forEach(i => { (groups[i.g] = groups[i.g] || []).push(i); });
+
   return (
-    <Modal title="Glosario · términos de Seguridad Alimentaria y Nutricional (SAN) y agropecuarios" onClose={onClose} width={680}>
-      <dl className="glossary">
-        {items.map(([term, def]) => (
-          <div key={term}>
-            <dt>{term}</dt>
-            <dd>{def}</dd>
+    <Modal title="Glosario y ficha técnica de indicadores" onClose={onClose} width={820}>
+      <div className="glossary-toolbar">
+        <p className="glossary-intro">
+          Definiciones de los términos, índices y métodos empleados en el portal, junto con la
+          ficha técnica básica de todos los indicadores disponibles en el mapa.
+        </p>
+        <button
+          type="button"
+          className="glossary-export-btn"
+          onClick={() => window.exportGlossaryPDF?.(indicators, GLOSSARY_SECTIONS)}
+          title="Descargar el glosario completo en formato PDF"
+        >
+          <span aria-hidden="true">📄</span>
+          <span>Descargar PDF</span>
+        </button>
+      </div>
+
+      {GLOSSARY_SECTIONS.map(section => (
+        <div key={section.title} className="glossary-block">
+          <h3 className="glossary-section-title">{section.title}</h3>
+          <dl className="glossary">
+            {section.items.map(([term, def]) => (
+              <div key={term}>
+                <dt>{term}</dt>
+                <dd>{def}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+
+      <div className="glossary-block">
+        <h3 className="glossary-section-title">Ficha técnica de indicadores del mapa</h3>
+        {Object.entries(groups).map(([g, list]) => (
+          <div key={g} className="glossary-group">
+            <h4 className="glossary-group-title">{g}</h4>
+            <dl className="glossary">
+              {list.map(ind => (
+                <div key={ind.id}>
+                  <dt>
+                    {ind.label}
+                    <span className="glossary-unit">{ind.unit}</span>
+                  </dt>
+                  <dd>{ind.info || "—"}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         ))}
-      </dl>
+      </div>
     </Modal>
   );
 }

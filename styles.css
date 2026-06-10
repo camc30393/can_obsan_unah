@@ -594,9 +594,86 @@ body {
 .modal-body em { color: var(--unah-ink); font-style: italic; }
 
 .glossary { margin: 0; }
+.glossary-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--unah-line);
+}
+.glossary-intro {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--unah-ink-2);
+  max-width: 540px;
+}
+.glossary-export-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: var(--unah-blue);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.glossary-export-btn:hover,
+.glossary-export-btn:focus-visible {
+  background: var(--unah-gold);
+  color: var(--unah-blue);
+  outline: none;
+}
+.glossary-block { margin-bottom: 22px; }
+.glossary-block:last-child { margin-bottom: 0; }
+.glossary-section-title {
+  margin: 0 0 4px;
+  font-family: "Source Serif 4", "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--unah-blue);
+  letter-spacing: -.01em;
+  padding-left: 10px;
+  border-left: 3px solid var(--unah-gold);
+  line-height: 1.5;
+}
+.glossary-group { margin-top: 14px; }
+.glossary-group-title {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--unah-green);
+}
+.glossary-unit {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--unah-line-2);
+  color: var(--unah-blue);
+  font-family: "Söhne", "Inter", system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .glossary > div {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 220px 1fr;
   gap: 12px;
   padding: 10px 0;
   border-bottom: 1px dashed var(--unah-line);
